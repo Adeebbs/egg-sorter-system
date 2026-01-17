@@ -69,7 +69,7 @@
         /* Stats Display */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin-bottom: 25px;
         }
@@ -109,7 +109,7 @@
         <div class="menu-grid">
             <div class="menu-card" onclick="showSection('pico-section')">
                 <i class="fas fa-microchip"></i>
-                <h2>PICO SYSTEM</h2>
+                <h2>PICO SYSTEM INFO</h2>
                 <p>Hardware Health Status</p>
             </div>
             <div class="menu-card" onclick="showSection('egg-section')">
@@ -152,6 +152,7 @@
             <div class="stat-card"><h3>Grade C</h3><div id="egg-c" class="value">0</div></div>
             <div class="stat-card"><h3>Grade D</h3><div id="egg-d" class="value">0</div></div>
             <div class="stat-card rejected"><h3>Rejected</h3><div id="egg-rej" class="value">0</div></div>
+            <div class="stat-card"><h3>Avg Weight</h3><div id="egg-avg" class="value">0g</div></div>
         </div>
     </div>
 
@@ -201,11 +202,11 @@
             // Pico Update
             document.getElementById('pico-time').innerText = new Date(data.pico.time).toLocaleTimeString();
             document.getElementById('pico-cpu').innerText = data.pico.cpu + "%";
-            document.getElementById('pico-mem').innerText = data.pico.memory + "%"; // Added Memory
+            document.getElementById('pico-mem').innerText = data.pico.memory + "%";
             document.getElementById('pico-temp').innerText = data.pico.temp + "°C";
             document.getElementById('pico-loc').innerText = data.pico.location;
 
-            // Egg Update
+            // Egg Update (Latest Row)
             if (data.egg_stats.length > 0) {
                 const today = data.egg_stats[data.egg_stats.length - 1];
                 document.getElementById('egg-total').innerText = today[1];
@@ -214,6 +215,7 @@
                 document.getElementById('egg-c').innerText = today[4];
                 document.getElementById('egg-d').innerText = today[5];
                 document.getElementById('egg-rej').innerText = today[6];
+                document.getElementById('egg-avg').innerText = Number(today[7]).toFixed(1) + "g";
             }
 
             // Logs Update
